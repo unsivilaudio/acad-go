@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"math"
 )
 
 type calculator struct {
@@ -50,11 +49,11 @@ func getUserPrompt(field *float64, label string) error {
 }
 
 func (c *calculator) CalculateProfit() {
-	intermediateProfit := math.Round(c.revenue - c.expenses)
-	collectedTax := math.Round(c.revenue * c.taxRate / 100)
-	totalProfit := math.Round(intermediateProfit - collectedTax)
+	intermediateProfit := c.revenue - c.expenses
+	collectedTax := c.revenue * c.taxRate / 100
+	totalProfit := intermediateProfit - collectedTax
 
-	fmt.Printf("\nIntermediate profit: %v", intermediateProfit)
-	fmt.Printf("\nTax collected: %v", collectedTax)
-	fmt.Printf("\nTotal profit: %v", totalProfit)
+	fmt.Printf("\nIntermediate profit: %.2f", intermediateProfit)
+	fmt.Printf("\nTax collected: %.2f", collectedTax)
+	fmt.Printf("\nTotal profit: %.2f", totalProfit)
 }

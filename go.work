@@ -1,1 +1,8 @@
-go 1.20
+go 1.21.5
+
+use (
+	./essentials
+	./essentials/banksy
+	./essentials/investment_calculator
+	./essentials/profit_calculator
+)
