@@ -3,6 +3,7 @@ package investment_calculator
 import (
 	"errors"
 	"fmt"
+	"log"
 	"math"
 )
 
@@ -46,4 +47,24 @@ func (c *calculator) CalculateAndPrint() {
 	fmt.Printf("Accrued Value: +%v", math.Round(futureReturn-float64(c.investmentAmount)))
 	fmt.Printf("\nTotal Value: %v", math.Round(futureReturn))
 	fmt.Printf("\nInflation Adjusted Value: %v", math.Round(futureRealReturn))
+}
+
+func RunInvestment() {
+	var investAmount int
+	var investRate float64
+	var investDuration int
+
+	fmt.Print("Enter amount to be invested: ")
+	fmt.Scan(&investAmount)
+	fmt.Print("Enter target interest rate: ")
+	fmt.Scan(&investRate)
+	fmt.Print("Enter investment duration (years): ")
+	fmt.Scan(&investDuration)
+
+	err, calc := GenerateCalculator(investAmount, investRate, investDuration)
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+
+	calc.CalculateAndPrint()
 }
