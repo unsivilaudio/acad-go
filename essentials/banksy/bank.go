@@ -1,7 +1,10 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/inancgumus/screen"
@@ -18,8 +21,32 @@ func main() {
 	a := account{
 		balance: defaultBalance,
 	}
+	accountBalance, err := a.getBalanceFromFile()
+	if err != nil {
+		a.balance = accountBalance
+		fmt.Println(err)
+	}
 
+	time.Sleep(time.Second * 3)
 	a.getUserPrompt()
+}
+
+func (a *account) writeBalanceToFile() {
+	balanceText := fmt.Sprintf("%.2f", a.balance)
+	os.WriteFile("balance.txt", []byte(balanceText), 0644)
+}
+
+func (a *account) getBalanceFromFile() (float64, error) {
+	data, err := os.ReadFile("balance.txt")
+	if err != nil {
+		return defaultBalance, errors.New("Failed to find balance file.")
+	}
+	balanceText := string(data)
+	balance, err := strconv.ParseFloat(balanceText, 64)
+	if err != nil {
+		return defaultBalance, errors.New("Failed to parse stored balance value.")
+	}
+	return balance, nil
 }
 
 func (a *account) getUserPrompt() {
@@ -59,7 +86,7 @@ func (a *account) getUserPrompt() {
 
 func (a *account) checkBalance() {
 	balance := fmt.Sprintf("%.2f", a.balance)
-	fmt.Printf("Your balance: %v", balance)
+	fmt.Printf("\nYour balance: %v", balance)
 }
 
 func (a *account) makeDeposit() {
@@ -75,6 +102,7 @@ func (a *account) makeDeposit() {
 	balance := fmt.Sprintf("%.2f", a.balance)
 	fmt.Printf("Deposited %.2f into your account\n", amount)
 	fmt.Printf("Your new balance: %v\n", balance)
+	a.writeBalanceToFile()
 }
 
 func (a *account) makeWithdrawal() {
@@ -93,5 +121,6 @@ func (a *account) makeWithdrawal() {
 		balance := fmt.Sprintf("%.2f", a.balance)
 		fmt.Printf("Withdrew %.2f from your account\n", amount)
 		fmt.Printf("Your new balance: %v\n", balance)
+		a.writeBalanceToFile()
 	}
 }
