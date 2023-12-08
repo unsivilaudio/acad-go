@@ -6,4 +6,5 @@ use (
 	./essentials/banksy
 	./essentials/investment_calculator
 	./essentials/profit_calculator
+	./notes
 )
