@@ -32,7 +32,8 @@ func (n Note) Save() error {
 func New(title, content string) (Note, error) {
 
 	if title == "" || content == "" {
-		return Note{}, errors.New("Invalid input.")
+		errorText := "Invalid input."
+		return Note{}, errors.New(errorText)
 	}
 
 	return Note{
