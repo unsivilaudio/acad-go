@@ -15,7 +15,7 @@ type Note struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-func (n *Note) Display() {
+func (n Note) Display() {
 	fmt.Printf("Your note titled '%v' has the following content:\n\n%v\n\n", n.Title, n.Content)
 }
 
@@ -32,8 +32,7 @@ func (n Note) Save() error {
 func New(title, content string) (Note, error) {
 
 	if title == "" || content == "" {
-		errorText := "Invalid input."
-		return Note{}, errors.New(errorText)
+		return Note{}, errors.New("invalid input")
 	}
 
 	return Note{
