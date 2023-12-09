@@ -3,6 +3,7 @@ package main
 import (
 	"calculator/cmdmanager"
 	"calculator/prices"
+	"fmt"
 )
 
 func main() {
@@ -12,7 +13,12 @@ func main() {
 		// fm := filemanager.New("prices.txt", fmt.Sprintf("result_%.0f.json", taxRate*100))
 		cmdm := cmdmanager.New()
 		priceJob := prices.NewJob(cmdm, taxRate)
-		priceJob.Process()
+		err := priceJob.Process()
+		if err != nil {
+			fmt.Println("Could not process job.")
+			fmt.Println(err)
+			break
+		}
 	}
 
 }
