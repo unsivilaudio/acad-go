@@ -2,6 +2,9 @@ go 1.21.5
 
 use (
 	./advanced
+	./advanced/funky
+	./advanced/funkyprob
+	./advanced/recursion
 	./essentials
 	./essentials/banksy
 	./essentials/investment_calculator
