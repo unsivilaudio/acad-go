@@ -5,6 +5,7 @@ use (
 	./advanced/funky
 	./advanced/funkyprob
 	./advanced/recursion
+	./calculator
 	./essentials
 	./essentials/banksy
 	./essentials/investment_calculator
