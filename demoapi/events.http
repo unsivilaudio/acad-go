@@ -1,0 +1,31 @@
+### Create a new event
+POST http://localhost:8080/events
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwiZXhwIjoxNzAyMjQwMTA5LCJ1c2VySWQiOjJ9.y0olOvfrcX-Gd0vTetlLEq3WGFX5msL-Zt5A5gLGCy0
+
+{
+    "name": "Crazy Awesome",
+    "description": "This is a crazy awesome event, that is fun for the whole family.",
+    "location": "555 Main St, Anytown, USA",
+    "date_time": "2023-05-15T17:00:00Z"  
+}
+
+### update single event
+PUT http://localhost:8080/events/2
+Content-Type: application/json
+
+{
+    "name": "Crazy Awesome 2!!!",
+    "description": "This is my favorite event for the whole family.",
+    "location": "555 Main St, Anytown, USA",
+    "date_time": "2023-05-15T17:00:00Z"  
+}
+
+### get all events
+GET http://localhost:8080/events
+
+### Get event with 'id' 2
+GET http://localhost:8080/events/2
+
+### Delete single event
+DELETE http://localhost:8080/events/1

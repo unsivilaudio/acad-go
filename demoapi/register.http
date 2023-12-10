@@ -1,0 +1,7 @@
+### Register for an event
+POST http://localhost:8080/events/2/register
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwiZXhwIjoxNzAyMjQwMTA5LCJ1c2VySWQiOjJ9.y0olOvfrcX-Gd0vTetlLEq3WGFX5msL-Zt5A5gLGCy0
+
+### Cancel registration for event
+DELETE http://localhost:8080/events/2/register
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwiZXhwIjoxNzAyMjQwMTA5LCJ1c2VySWQiOjJ9.y0olOvfrcX-Gd0vTetlLEq3WGFX5msL-Zt5A5gLGCy0
