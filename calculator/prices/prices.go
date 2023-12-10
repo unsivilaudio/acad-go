@@ -13,10 +13,11 @@ type TaxIncludePriceJob struct {
 	TaxIncludedPrices map[string]string   `json:"tax_included_prices"`
 }
 
-func (job *TaxIncludePriceJob) Process() error {
+func (job *TaxIncludePriceJob) Process(c chan error) {
 	err := job.LoadData()
 	if err != nil {
-		return err
+		c <- err
+		return
 	}
 
 	result := make(map[string]string)
@@ -28,9 +29,10 @@ func (job *TaxIncludePriceJob) Process() error {
 	job.TaxIncludedPrices = result
 	err = job.IOManager.WriteResult(job)
 	if err != nil {
-		return err
+		c <- err
+		return
 	}
-	return nil
+	c <- nil
 }
 
 func (job *TaxIncludePriceJob) LoadData() error {

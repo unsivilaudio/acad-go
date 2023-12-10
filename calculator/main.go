@@ -1,24 +1,28 @@
 package main
 
 import (
-	"calculator/cmdmanager"
+	"calculator/filemanager"
 	"calculator/prices"
 	"fmt"
 )
 
 func main() {
 	taxRates := []float64{0, 0.07, 0.1, 0.15}
+	doneChans := make([]chan error, len(taxRates))
 
-	for _, taxRate := range taxRates {
-		// fm := filemanager.New("prices.txt", fmt.Sprintf("result_%.0f.json", taxRate*100))
-		cmdm := cmdmanager.New()
-		priceJob := prices.NewJob(cmdm, taxRate)
-		err := priceJob.Process()
-		if err != nil {
+	for index, taxRate := range taxRates {
+		doneChans[index] = make(chan error)
+		fm := filemanager.New("prices.txt", fmt.Sprintf("result_%.0f.json", taxRate*100))
+		// cmdm := cmdmanager.New()
+		priceJob := prices.NewJob(fm, taxRate)
+		go priceJob.Process(doneChans[index])
+	}
+
+	for _, err := range doneChans {
+		if <-err != nil {
 			fmt.Println("Could not process job.")
-			fmt.Println(err)
+			fmt.Println(<-err)
 			break
 		}
 	}
-
 }
